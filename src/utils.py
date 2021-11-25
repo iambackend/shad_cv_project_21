@@ -57,3 +57,19 @@ def evaluate_model(model, dataset, batch_size=32, num_workers=4):
             
     return labels, predictions
 
+    return labels, predictions
+
+def get_probas(model, dataset, batch_size=32, num_workers=4):
+    model.eval()
+    loader = torch.utils.data.DataLoader(dataset, 
+                                           batch_size=batch_size,
+                                           num_workers=num_workers,
+                                           shuffle=False)
+    predictions = []
+    with torch.no_grad():
+        for x, _ in tqdm(loader):
+            prediction = model.predict_proba(x).numpy()
+            predictions += list(prediction)
+            
+    return predictions
+
