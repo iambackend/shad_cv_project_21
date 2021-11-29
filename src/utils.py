@@ -40,6 +40,9 @@ class ImagesDataset(Dataset):
             img = self.transform(img)
 
         return img, label
+    
+    def get_labels(self):
+        return self.labels
 
 def evaluate_model(model, dataset, batch_size=32, num_workers=4):
     model.eval()
